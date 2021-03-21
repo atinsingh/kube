@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp
+spec:
+  replicas: 3
+  selector:
+    matchExpressions:
+      - key: version
+        operator: In
+        values:
+           - v1 
+           - v2
+  template:
+    metadata:
+      name: vote
+      labels:
+        app: vote
+        version: v2
+    spec:
+      containers:
+        - name: votepod
+          image: pragra/vote:v2
+          ports:
+            - containerPort: 80

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  result-deploy
+  labels:
+    name:  result
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name:  result
+        app: result 
+    spec:
+      containers:
+      - image:  pragra/result
+        name:  result
+        resources:
+          limits:
+            cpu: "20m"
+            memory: "55M"
+        ports:
+        - containerPort:  80
+          name:  my-name
+      
