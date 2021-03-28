@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  jobv1
+  labels:
+    app: job 
+spec:
+  template:
+    metadata:
+      name:  pragra/job
+    spec:
+      containers:
+        - name:  abc 
+          image: pragra/job
+      restartPolicy: OnFailure

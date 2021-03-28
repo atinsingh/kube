@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: apache
+  labels:
+    app: webserver
+spec:
+  containers:
+    - image:  httpd
+      name:  webserver
+      ports:
+        - containerPort: 9090
+          name: webport
+      volumeMounts:
+        - name:  httpdconf
+          mountPath:  /usr/local/apache2/conf/httpd.conf
+  volumes:
+    - name: httpdconf
+      configMap:
+        name: apcaheconfig
