@@ -1,0 +1,41 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: db-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 512m
+...
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: db-pv
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/db
+
+...
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: path-ingress
+spec:
+  rules:
+  - host: bandicoot.example.com
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: bandicoot
+          servicePort: 8080
+      - path: "/a/"
+        backend:
+          serviceName: alpaca
+          servicePort: 8080

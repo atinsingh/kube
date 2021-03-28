@@ -1,0 +1,20 @@
+# https://kubernetes.io/docs/concepts/services-networking/ingress/#the-ingress-resource
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: voteing
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  backend:
+    serviceName: votesvc
+    servicePort: 80 
+  rules:
+  - host: pragravote.com
+    http:
+      paths:
+      - path: /result
+        backend:
+            serviceName: resultsvc
+            servicePort: 80
